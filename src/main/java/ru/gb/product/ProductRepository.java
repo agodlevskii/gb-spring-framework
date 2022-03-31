@@ -9,15 +9,11 @@ import java.util.stream.Collectors;
 public class ProductRepository {
     private final List<Product> products = new ArrayList<>();
 
-    public List<Product> getProducts() {
+    public List<Product> findAll() {
         return products;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
-    }
-
-    public Product getProductById(String id) {
+    public Product findOne(String id) {
         return products
                 .stream()
                 .filter(product -> id.equals(product.getId()))
@@ -25,10 +21,16 @@ public class ProductRepository {
                 .orElse(null);
     }
 
-    public List<String> getAvailableProductIds() {
-        return products
-                .stream()
-                .map(Product::getId)
-                .collect(Collectors.toList());
+    public int count() {
+        return products.size();
+    }
+
+    public void save(Product product) {
+        products.add(product);
+    }
+
+    public void delete(String id) {
+        Product product = findOne(id);
+        products.remove(product);
     }
 }

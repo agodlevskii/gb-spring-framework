@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.gb.product.Product;
-import ru.gb.product.ProductRepository;
+import ru.gb.product.ProductService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 @Component("cart")
 @Scope("prototype")
 public class Cart {
-    private ProductRepository productRepository;
+    private ProductService productService;
     private final List<Product> products = new ArrayList<>();
 
     @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
     public List<Product> getCart() {
@@ -33,7 +33,7 @@ public class Cart {
     }
 
     public void addToCart(String id) {
-        Product product = productRepository.getProductById(id);
+        Product product = productService.findOne(id);
         products.add(product);
     }
 
@@ -54,6 +54,10 @@ public class Cart {
     }
 
     public List<String> getAvailableProductIds() {
-        return productRepository.getAvailableProductIds();
+        return productService
+                .findAll()
+                .stream()
+                .map(Product::getId)
+                .collect(Collectors.toList());
     }
 }
