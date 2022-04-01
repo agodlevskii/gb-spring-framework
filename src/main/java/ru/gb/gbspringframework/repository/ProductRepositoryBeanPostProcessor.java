@@ -1,8 +1,9 @@
-package ru.gb.product;
+package ru.gb.gbspringframework.repository;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
+import ru.gb.gbspringframework.model.Product;
 
 @Component
 public class ProductRepositoryBeanPostProcessor implements BeanPostProcessor {

@@ -1,9 +1,10 @@
-package ru.gb.product;
+package ru.gb.gbspringframework.repository;
 
 import org.springframework.stereotype.Repository;
+import ru.gb.gbspringframework.model.Product;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ProductRepository {

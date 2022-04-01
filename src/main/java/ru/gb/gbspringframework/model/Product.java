@@ -1,9 +1,9 @@
-package ru.gb.product;
+package ru.gb.gbspringframework.model;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
