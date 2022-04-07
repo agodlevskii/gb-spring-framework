@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.gb.gbspringframework.model.Product;
+import ru.gb.gbspringframework.entity.Product;
 import ru.gb.gbspringframework.service.ProductService;
 
 @Controller
@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @PostMapping("products/remove")
-    public String removeProduct(@RequestParam String id) {
+    public String removeProduct(@RequestParam Long id) {
         productService.delete(id);
         return "redirect:/products";
     }

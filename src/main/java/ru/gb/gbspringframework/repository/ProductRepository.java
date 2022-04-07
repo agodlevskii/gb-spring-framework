@@ -1,7 +1,7 @@
 package ru.gb.gbspringframework.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.gb.gbspringframework.model.Product;
+import ru.gb.gbspringframework.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class ProductRepository {
         return products;
     }
 
-    public Product findOne(String id) {
+    public Product findOne(Long id) {
         return products
                 .stream()
                 .filter(product -> id.equals(product.getId()))
@@ -30,7 +30,7 @@ public class ProductRepository {
         products.add(product);
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         Product product = findOne(id);
         products.remove(product);
     }
