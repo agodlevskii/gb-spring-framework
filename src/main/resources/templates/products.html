@@ -60,10 +60,6 @@
                     <section class="modal-body">
                         <form action="#" th:action="@{/products/add}" th:object="${newProduct}" method="post">
                             <section class="mb-3">
-                                <label th:for="product_id" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="product_id" th:field="*{id}">
-                            </section>
-                            <section class="mb-3">
                                 <label th:for="product_name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="product_name" th:field="*{name}">
                             </section>

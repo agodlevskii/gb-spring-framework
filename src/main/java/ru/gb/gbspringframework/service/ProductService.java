@@ -2,37 +2,36 @@ package ru.gb.gbspringframework.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.gb.gbspringframework.model.Product;
-import ru.gb.gbspringframework.repository.ProductRepository;
+import ru.gb.gbspringframework.dao.ProductDao;
+import ru.gb.gbspringframework.entity.Product;
 
 import java.util.List;
 
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
+//    // Old JDBC approach
+//    private ProductDao productDao = new OldJdbcProductDao();
+
+    private ProductDao productDao;
 
     @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
     public List<Product> findAll() {
-        return productRepository.findAll();
+        return productDao.findAll();
     }
 
-    public Product findOne(String id) {
-        return productRepository.findOne(id);
+    public Product findOne(Long id) {
+        return productDao.findById(id);
     }
 
-    public int count() {
-        return productRepository.count();
+    public Product save(Product product) {
+        return productDao.saveOrUpdate(product);
     }
 
-    public void save(Product product) {
-        productRepository.save(product);
-    }
-
-    public void delete(String id) {
-        productRepository.delete(id);
+    public void delete(Long id) {
+        productDao.deleteById(id);
     }
 }
