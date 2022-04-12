@@ -13,11 +13,6 @@ import java.math.RoundingMode;
 @Builder
 @Entity
 @Table(name = "product")
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "from Product"),
-    @NamedQuery(name = "Product.findById", query = "select p from Product p where p.id = :id"),
-    @NamedQuery(name = "Product.deleteById", query = "delete from Product p where p.id = :id")
-})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
