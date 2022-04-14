@@ -50,6 +50,17 @@
             </tbody>
         </table>
 
+        <nav aria-label="Page navigation" th:if="${products.totalPages > 0}">
+            <ul class="pagination">
+                <li th:class="${pageNumber == products.number + 1} ? 'page-item active' : 'page-item'"
+                    th:each="pageNumber: ${pageNumbers}">
+                    <a class="page-link"
+                       th:href="@{/products(size=${products.size}, page=${pageNumber})}"
+                       th:text="${pageNumber}"></a>
+                </li>
+            </ul>
+        </nav>
+
         <article class="modal" tabindex="-1" id="productModal">
             <div class="modal-dialog">
                 <div class="modal-content">

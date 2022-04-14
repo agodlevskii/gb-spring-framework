@@ -1,7 +1,10 @@
 package ru.gb.gbspringframework.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.gb.gbspringframework.entity.Product;
@@ -14,6 +17,9 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     List<Product> findAll();
+
+    @Override
+    Page<Product> findAll(Pageable pageable);
 
     @Override
     <S extends Product> S save(S entity);
