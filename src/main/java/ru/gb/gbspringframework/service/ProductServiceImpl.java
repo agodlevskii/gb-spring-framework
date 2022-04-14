@@ -1,6 +1,8 @@
 package ru.gb.gbspringframework.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.gbspringframework.entity.Product;
@@ -20,6 +22,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Product findOne(Long id) {
         return productRepository.findById(id).orElse(null);
@@ -35,5 +42,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void delete(Long id) {
         productRepository.deleteById(id);
+    }
+
+    Page<Product> findPaginated(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 }
