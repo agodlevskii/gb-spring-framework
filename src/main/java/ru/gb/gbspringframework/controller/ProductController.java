@@ -1,14 +1,16 @@
 package ru.gb.gbspringframework.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ru.gb.gbspringframework.entity.Cart;
 import ru.gb.gbspringframework.entity.Product;
 import ru.gb.gbspringframework.service.ProductService;
 
@@ -18,8 +20,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
+@Slf4j
+@AllArgsConstructor
 public class ProductController {
     private ProductService productService;
+    private Cart cart;
 
     @Autowired
     public void setProductService(ProductService productService) {
@@ -45,6 +50,7 @@ public class ProductController {
 
         model.addAttribute("products", products);
         model.addAttribute("newProduct", new Product());
+        model.addAttribute("cart", cart);
         return "products";
     }
 
@@ -57,6 +63,19 @@ public class ProductController {
     @PostMapping("products/remove")
     public String removeProduct(@RequestParam Long id) {
         productService.delete(id);
+        return "redirect:/products";
+    }
+
+    @PostMapping("products/addToCart")
+    public String addToCart(@RequestParam Long id) {
+        Product product = productService.findOne(id);
+        cart.save(product);
+        return "redirect:/products";
+    }
+
+    @PostMapping("products/removeFromCart")
+    public String removeFromCart(@RequestParam Long id) {
+        cart.removeById(id);
         return "redirect:/products";
     }
 }

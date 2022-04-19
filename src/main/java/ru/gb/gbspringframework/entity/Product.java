@@ -32,4 +32,9 @@ public class Product {
     private BigDecimal getCost(double rawCost) {
     return new BigDecimal(rawCost).setScale(2, RoundingMode.HALF_EVEN);
     }
+
+    @Override
+    public String toString() {
+        return getId() + "; " + getName() + "; " + getCost();
+    }
 }
