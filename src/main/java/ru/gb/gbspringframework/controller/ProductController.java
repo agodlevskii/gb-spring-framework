@@ -78,4 +78,16 @@ public class ProductController {
         cart.removeById(id);
         return "redirect:/products";
     }
+
+    @PostMapping("products/increase")
+    public String icnrease(@RequestParam Long id) {
+        cart.increase(id);
+        return "redirect:/products";
+    }
+
+    @PostMapping("products/decrease")
+    public String decrease(@RequestParam Long id) {
+        cart.decrease(id);
+        return "redirect:/products";
+    }
 }
