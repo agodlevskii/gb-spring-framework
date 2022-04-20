@@ -9,6 +9,7 @@ import java.util.*;
 @Scope("prototype")
 public class Cart {
     List<Product> products = new ArrayList<>();
+    Map<Long, Integer> productsQuantity = new HashMap<>();
 
     public List<Product> getProducts() {
         return List.copyOf(products);
@@ -32,6 +33,29 @@ public class Cart {
 
     public void save(Product product) {
         products.add(product);
+        productsQuantity.put(product.getId(), 1);
+    }
+
+    public int quantity(Long id) {
+        return has(id) ? productsQuantity.get(id) : 0;
+    }
+
+    public void increase(Long id) {
+        if (!has(id)) {
+            return;
+        }
+
+        productsQuantity.put(id, productsQuantity.get(id) + 1);
+    }
+
+    public void decrease(Long id) {
+        if (!has(id)) {
+            return;
+        }
+
+        int newQuantity = (productsQuantity.get(id) - 1);
+
+        productsQuantity.put(id, newQuantity > 0 ? newQuantity : 1);
     }
 
     public void removeById(Long id) {
@@ -39,6 +63,7 @@ public class Cart {
 
         if (product != null) {
             products.remove(product);
+            productsQuantity.remove(product.getId());
         }
     }
 

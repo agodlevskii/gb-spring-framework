@@ -13,6 +13,17 @@
             justify-content: space-between;
             padding: 2rem 0;
         }
+
+        .product-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 12rem;
+        }
+
+        .product-quantity {
+            width: 9rem;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -42,12 +53,27 @@
                     <td th:text="${product.getName()}" />
                     <td th:text="${product.getCost()}" />
                     <td>
-                        <form th:if="${!cart.has(product.getId())}" th:action="@{/products/addToCart(id=${product.getId()})}" method="post">
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-basket"></i></button>
-                        </form>
-                        <form th:if="${cart.has(product)}" th:action="@{/products/removeFromCart(id=${product.getId()})}" method="post">
-                            <button class="btn btn-secondary" type="submit"><i class="bi bi-trash"></i></button>
-                        </form>
+                        <article class="product-controls">
+                            <section th:if="${cart.has(product)}" class="input-group product-quantity">
+                                <form th:action="@{/products/decrease(id=${product.getId()})}" method="post">
+                                    <button type="submit" class="btn btn-default btn-number" th:disabled="${cart.quantity(product.getId()) == 1}" data-type="minus">
+                                        <i class="bi bi-dash"></i>
+                                    </button>
+                                </form>
+                                <input type="text" th:name="${product.getId()} + '-quantity'" class="form-control" th:value="${cart.quantity(product.getId())}" disabled>
+                                <form th:action="@{/products/increase(id=${product.getId()})}" method="post">
+                                    <button type="submit" class="btn btn-default btn-number" data-type="plus">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </form>
+                            </section>
+                            <form th:if="${!cart.has(product.getId())}" th:action="@{/products/addToCart(id=${product.getId()})}" method="post">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-basket"></i></button>
+                            </form>
+                            <form th:if="${cart.has(product)}" th:action="@{/products/removeFromCart(id=${product.getId()})}" method="post">
+                                <button class="btn btn-secondary" type="submit"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </article>
                     </td>
                 </tr>
             </tbody>
