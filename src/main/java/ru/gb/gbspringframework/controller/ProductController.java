@@ -1,12 +1,7 @@
 package ru.gb.gbspringframework.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +15,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-@Slf4j
 @AllArgsConstructor
 public class ProductController {
     private ProductService productService;
     private Cart cart;
-
-    @Autowired
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping("products")
     public String products(Model model,
